@@ -199,11 +199,13 @@ function createCard(r) {
   const viewBtn = document.createElement('button');
   viewBtn.textContent = 'View Full Recipe';
   viewBtn.className = 'btn btn--primary';
+  viewBtn.style.flex = '1';
   viewBtn.addEventListener('click', () => openModal(r));
 
   const favBtn = document.createElement('button');
   favBtn.textContent = isFavorited(r.id) ? 'Remove from Favorites' : 'Add to Favorites';
   favBtn.className = 'btn btn--ghost';
+  favBtn.style.flex = '1';
   favBtn.addEventListener('click', () => {
     toggleFavorite(r);
     favBtn.textContent = isFavorited(r.id) ? 'Remove from Favorites' : 'Add to Favorites';
