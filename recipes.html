@@ -10,12 +10,21 @@
 
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="recipes.css" />
 </head>
 <body class="page-bg">
   <header class="nav">
     <div class="nav-left">
       <button id="menuToggle" class="hamburger" aria-label="menu">☰</button>
+      <div id="profileMenu" class="profile-menu hidden">
+        <div class="profile-header">
+          <h3>My Profile</h3>
+          <button id="viewProfileBtn" class="btn btn--ghost small">View Full Profile</button>
+        </div>
+        <div id="profileSummary" class="profile-summary">
+          <!-- User info will be populated here -->
+        </div>
+      </div>
       <div class="brand-wrap">
         <h2 class="brand small">Recipe Collection</h2>
         <span class="subtle">Cozy • Lofi</span>

@@ -1,5 +1,9 @@
 const userNameEl = document.getElementById('userName');
 const logoutBtn = document.getElementById('logoutBtn');
+const menuToggle = document.getElementById('menuToggle');
+const profileMenu = document.getElementById('profileMenu');
+const viewProfileBtn = document.getElementById('viewProfileBtn');
+const profileSummary = document.getElementById('profileSummary');
 const searchInput = document.getElementById('searchInput');
 const cuisineFilter = document.getElementById('cuisineFilter');
 const ratingSort = document.getElementById('sortBtn');
@@ -32,7 +36,32 @@ if (!user) {
   window.location.href = 'login.html';
 } else {
   userNameEl.textContent = `Welcome, ${user.firstName}!`;
+  // populate profile summary
+  profileSummary.innerHTML = `
+    <p><strong>Name:</strong> ${user.firstName} ${user.lastName}</p>
+    <p><strong>Age:</strong> ${user.age}</p>
+    <p><strong>Gender:</strong> ${user.gender}</p>
+    <p><strong>Email:</strong> ${user.email}</p>
+    <p><strong>Phone:</strong> ${user.phone}</p>
+  `;
 }
+
+// menu toggle
+menuToggle.addEventListener('click', () => {
+  profileMenu.classList.toggle('hidden');
+});
+
+// view profile button
+viewProfileBtn.addEventListener('click', () => {
+  window.location.href = 'profil.html';
+});
+
+// close menu when clicking outside
+document.addEventListener('click', (e) => {
+  if (!menuToggle.contains(e.target) && !profileMenu.contains(e.target)) {
+    profileMenu.classList.add('hidden');
+  }
+});
 
 // logout button
 logoutBtn.addEventListener('click', () => {
