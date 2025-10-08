@@ -1,0 +1,94 @@
+<!doctype html>
+
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Recipe Collection — Recipes</title>
+
+  <!-- Fonts -->
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="recipes.css" />
+</head>
+<body class="page-bg">
+  <header class="nav">
+    <div class="nav-left">
+      <button id="menuToggle" class="hamburger" aria-label="menu">☰</button>
+      <div class="brand-wrap">
+        <h2 class="brand small">Recipe Collection</h2>
+        <span class="subtle">Cozy • Lofi • Ghibli</span>
+      </div>
+    </div>
+    <div class="nav-right">
+      <div class="user-info">
+        <span id="userName" class="user-name">Guest</span>
+        <button id="logoutBtn" class="btn btn--ghost">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <aside id="sidebar" class="card side-panel">
+      <div class="panel-inner">
+        <div class="panel-header">
+          <h3>Explore</h3>
+          <p class="subtle">Filter & search recipes</p>
+        </div>
+
+    <div class="control">
+      <label class="label small">
+        <span class="label-text">Search</span>
+        <input id="searchInput" placeholder="nama, cuisine, ingredient, tag..." />
+      </label>
+    </div>
+
+    <div class="control">
+      <label class="label small">
+        <span class="label-text">Cuisine</span>
+        <select id="cuisineFilter">
+          <option value="">All Cuisines</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="panel-footer">
+      <small class="subtle">Tip: gunakan kata kunci seperti "japanese", "pasta", atau bahan seperti "egg".</small>
+    </div>
+  </div>
+</aside>
+
+<section class="content">
+  <div class="controls-inline card">
+    <div class="results-meta">
+      <span id="resultsCount">— recipes</span>
+    </div>
+    <div class="actions">
+      <button id="sortBtn" class="btn btn--ghost">Sort ★</button>
+    </div>
+  </div>
+
+  <section id="recipesList" class="grid"></section>
+
+  <div class="center">
+    <button id="showMoreBtn" class="btn btn--primary">Show More</button>
+  </div>
+</section>
+
+
+  </main>
+
+  <!-- modal for full recipe -->
+
+  <div id="modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-content card">
+      <button id="modalClose" class="btn btn--ghost modal-close">Close</button>
+      <div id="modalBody" class="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="recipes.js"></script>
+
+</body>
+</html>

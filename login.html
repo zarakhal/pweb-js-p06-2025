@@ -1,44 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login | Recipe Collection</title>
-    <link rel="stylesheet" href="styles/style.css" />
-  </head>
-  <body>
-    <header>
-      <h1>Recipe Collection</h1>
-    </header>
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Recipe Collection — Login</title>
 
-    <main class="login-container">
-      <form id="loginForm">
-        <h2>Login</h2>
-        <label for="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          placeholder="Enter username"
-          required
-        />
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="Enter password"
-          required
-        />
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body class="page-bg login-centered">
+  <main class="login-container">
+    <section class="login-box card card--glass">
+      <div class="hero-art">
+        <svg width="140" height="140" viewBox="0 0 200 200" aria-hidden="true">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1">
+              <stop offset="0" stop-color="#f7f1e6"/>
+              <stop offset="1" stop-color="#e9f7ef"/>
+            </linearGradient>
+          </defs>
+          <rect width="200" height="200" rx="24" fill="url(#g)"/>
+          <g transform="translate(50,34)" fill="#a67c52" opacity="0.9">
+            <ellipse cx="50" cy="70" rx="46" ry="20"/>
+            <rect x="18" y="30" width="64" height="36" rx="10"/>
+            <circle cx="40" cy="18" r="14"/>
+          </g>
+        </svg>
+      </div>
 
-        <button type="submit">Login</button>
-        <p id="loginMessage"></p>
-      </form>
-    </main>
+      <div class="login-form-side">
+        <h1 class="brand">Recipe Collection</h1>
+        <p class="lead">Cozy recipes, slow-cooked vibes.</p>
+        <p class="lead">Silakan login untuk melanjutkan...</p>
 
-    <footer>
-      <p>© 2025 Recipe Collection</p>
+        <form id="loginForm" class="form">
+          <label class="label">
+            <span class="label-text">Username</span>
+            <input id="username" name="username" type="text" required autocomplete="username" placeholder="contoh: johnd" />
+          </label>
+
+          <label class="label">
+            <span class="label-text">Password</span>
+            <input id="password" name="password" type="password" required autocomplete="current-password" placeholder="• • • • • •" />
+          </label>
+
+          <div class="form-row">
+            <button id="loginBtn" type="submit" class="btn btn--primary">Login</button>
+            <button type="button" class="btn btn--ghost" onclick="location.reload()">Reset</button>
+          </div>
+
+          <div id="message" class="msg" role="status" aria-live="polite"></div>
+        </form>
+
+      </div>
+    </section>
+
+    <footer class="foot">
+      <p>Made with ☕ &amp; calm tunes</p>
     </footer>
+  </main>
 
-    <script src="dist/main.js"></script>
-  </body>
+  <script src="login.js"></script>
+</body>
 </html>
