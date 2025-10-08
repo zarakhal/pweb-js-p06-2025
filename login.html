@@ -5,49 +5,70 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Recipe Collection — Login</title>
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="login.css" />
+  <style>
+    #message {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      display: none;
+    }
+    #message.error {
+      display: block;
+      background-color: #ffe5e5;
+      color: #c62828;
+    }
+    #message.success {
+      display: block;
+      background-color: #e8f5e9;
+      color: #2e7d32;
+    }
+  </style>
 </head>
-<body class="page-bg login-centered">
-  <main class="login-container">
-    <section class="login-box card card--glass">
-      <div class="hero-art">
-        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Delicious food" style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(25,20,15,0.1);">
-      </div>
 
-      <div class="login-form-side">
-        <h1 class="brand">Recipe Collection</h1>
-        <p class="lead">Cozy recipes, slow-cooked vibes.</p>
-        <p class="lead">Silakan login untuk melanjutkan...</p>
+<body>
+  <main class="login-wrapper">
+    <div class="login-left">
+      <img src="assets/image1.png" alt="Ilustrasi masakan">
+    </div>
+
+    <div class="login-right">
+      <div class="login-content">
+        <h1 class="welcome-title">Welcome Back!</h1>
+        <p class="welcome-sub">
+          Don't have an account? <span>Sign up</span>
+        </p>
 
         <form id="loginForm" class="form">
           <label class="label">
             <span class="label-text">Username</span>
-            <input id="username" name="username" type="text" required autocomplete="username" placeholder="contoh: johnd" />
+            <input id="username" name="username" type="text" required autocomplete="username" placeholder="contoh: kminchelle" />
           </label>
 
           <label class="label">
             <span class="label-text">Password</span>
-            <input id="password" name="password" type="password" required autocomplete="current-password" placeholder="• • • • • •" />
+            <input id="password" name="password" type="password" required autocomplete="current-password" placeholder="••••••" />
           </label>
+
+          <a href="#" class="forgot">Forgot your password?</a>
 
           <div class="form-row">
             <button id="loginBtn" type="submit" class="btn btn--primary">Login</button>
             <button type="button" class="btn btn--ghost" onclick="location.reload()">Reset</button>
           </div>
 
-          <div id="message" class="msg" role="status" aria-live="polite"></div>
+          <p id="message"></p>
+
+          <p class="hint">
+            Gunakan credentials dari
+            <a href="https://dummyjson.com/users" target="_blank">https://dummyjson.com/users</a>.<br>
+          </p>
         </form>
-
-        <p class="hint">Gunakan credentials dari <code>https://dummyjson.com/users</code>.</p>
       </div>
-    </section>
-
-    <footer class="foot">
-      <p>Made with ☕ &amp; calm tunes</p>
-    </footer>
+    </div>
   </main>
 
   <script src="login.js"></script>
