@@ -29,20 +29,6 @@ body { font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "He
 .btn--primary { background: linear-gradient(180deg,var(--accent), #8fbf8a); color: #fff; box-shadow: 0 8px 24px rgba(115,130,100,0.08); }
 .btn--ghost { background: transparent; color: var(--accent-2); border: 1px solid rgba(160,120,90,0.08); }
 
-/* hero section */
-.hero { background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center; padding: 60px 20px; color: white; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }
-.hero-content { text-align: center; }
-.hero-content h1 { font-size: 2.5rem; margin: 0 0 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-.hero-content p { font-size: 1.2rem; margin: 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
-
-/* sort navbar */
-.sort-navbar { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 15px 20px; margin-bottom: 20px; background: var(--card); border-radius: var(--round); box-shadow: var(--shadow); border: 1px solid var(--glass-border); }
-.sort-left { flex: 1; }
-.sort-middle { flex: 1; text-align: center; }
-.sort-right { flex: 1; text-align: right; }
-.sort-navbar input { width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(80,70,60,0.08); font-size: 14px; background: linear-gradient(180deg,#fff,#fffaf3); }
-.sort-navbar select { width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(160,120,90,0.08); font-size: 14px; background: transparent; color: var(--accent-2); cursor: pointer; }
-
 /* top nav */
 .nav { display:flex; justify-content:space-between; align-items:center; gap:12px; padding: 12px 20px; margin-bottom: 12px; border-radius: 12px; background: linear-gradient(90deg, rgba(255,255,250,0.7), rgba(245,255,250,0.6)); box-shadow: var(--shadow); border: 1px solid rgba(180,150,110,0.04); }
 .nav-left { display:flex; gap:10px; align-items:center; }
@@ -51,25 +37,13 @@ body { font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "He
 .brand-wrap { display:flex; flex-direction:column; line-height:1; }
 .subtle { color: var(--muted); font-size: 13px; }
 
-/* hamburger */
-.hamburger { background: transparent; border: none; font-size: 18px; padding: 6px 8px; border-radius: 8px; cursor: pointer; color: var(--accent-2); }
+/* favorites section */
+.favorites-section { min-height: 40vh; }
+.favorites-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.favorites-header h1 { margin: 0; color: var(--accent-2); }
+.no-favorites { text-align: center; padding: 40px; color: var(--muted); }
 
-/* profile menu */
-.profile-menu { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 20; }
-.profile-menu-content { background: var(--card); border-radius: var(--round); box-shadow: var(--shadow); border: 1px solid var(--glass-border); padding: 24px; max-width: 400px; width: 90%; }
-.profile-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-.profile-header h3 { margin: 0; font-size: 18px; color: var(--accent-2); }
-.profile-summary { font-size: 14px; }
-.profile-summary p { margin: 6px 0; color: var(--muted); }
-
-/* layout for recipes page */
-.content { min-height: 40vh; }
-
-/* controls and grid */
-.controls-inline { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom: 14px; }
-.results-meta { color:var(--muted); font-size:14px; }
-.actions select { background: transparent; color: var(--accent-2); border: 1px solid rgba(160,120,90,0.08); padding: 8px 12px; border-radius: 12px; font-size: 14px; cursor: pointer; }
-
+/* grid */
 .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; align-items:stretch; }
 
 /* recipe card */
@@ -77,12 +51,8 @@ body { font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "He
 .recipe-card img { width:100%; height:150px; object-fit:cover; border-radius:10px; box-shadow: 0 6px 18px rgba(30,20,10,0.04); }
 .recipe-card h3 { margin:0; font-size:18px; color:#3c5a44; font-weight:600; }
 .recipe-card button { margin-top: auto; width: 100%; }
-.recipe-card .ingredients { min-height: 40px; display: flex; align-items: flex-start; }
 .meta { color:var(--muted); font-size:13px; margin:0; }
 .rating { font-weight:600; color: #b77a4a; }
-
-/* center show more */
-.center { text-align:center; margin: 20px 0; }
 
 /* modal */
 .modal { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background: rgba(8,8,8,0.35); padding: 20px; z-index:30; }
@@ -97,29 +67,6 @@ body { font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "He
 .modal-content h3 { margin-top: 20px; margin-bottom: 10px; }
 .modal-content ul, .modal-content ol { padding-left: 20px; }
 .modal-content li { margin-bottom: 5px; }
-
-/* responsive adjustments */
-
-@media (max-width: 999px) {
-.grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
-main.wrap { display:block; }
-}
-
-@media (max-width: 768px) {
- .nav { flex-direction:row; gap:8px; padding:10px; }
- .user-info { flex-direction: row; justify-content: flex-end; gap: 8px; }
- .card { padding: 14px; border-radius: 12px; }
- .grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
- .recipe-card img { height: 140px; }
-}
-
-@media (max-width: 480px) {
-body { font-size: 14px; }
-.grid { grid-template-columns: 1fr; gap:12px; }
-.recipe-card img { height: 180px; }
-.nav { padding: 10px 12px; border-radius: 10px; }
-.hamburger { display: inline-flex; }
-}
 
 /* micro interactions */
 input, select, button { transition: box-shadow var(--transition), transform var(--transition); }

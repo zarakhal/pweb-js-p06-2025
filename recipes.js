@@ -1,6 +1,7 @@
 const userNameEl = document.getElementById('userName');
 const logoutBtn = document.getElementById('logoutBtn');
 const menuToggle = document.getElementById('menuToggle');
+const favoritesBtn = document.getElementById('favoritesBtn');
 const profileMenu = document.getElementById('profileMenu');
 const viewProfileBtn = document.getElementById('viewProfileBtn');
 const profileSummary = document.getElementById('profileSummary');
@@ -29,6 +30,35 @@ function getDifficultyEmoji(diff) {
   return '';
 }
 
+// get favorites from localStorage
+function getFavorites() {
+  return JSON.parse(localStorage.getItem('favorites')) || [];
+}
+
+// save favorites to localStorage
+function saveFavorites(favorites) {
+  localStorage.setItem('favorites', JSON.stringify(favorites));
+}
+
+// check if recipe is favorited
+function isFavorited(recipeId) {
+  const favorites = getFavorites();
+  return favorites.some(fav => fav.id === recipeId);
+}
+
+// toggle favorite
+function toggleFavorite(recipe) {
+  let favorites = getFavorites();
+  const index = favorites.findIndex(fav => fav.id === recipe.id);
+  if (index > -1) {
+    favorites.splice(index, 1);
+  } else {
+    favorites.push(recipe);
+  }
+  saveFavorites(favorites);
+  // update button text if needed, but since cards are re-rendered on filter, it will update
+}
+
 // proteksi halaman: cek localStorage
 const user = JSON.parse(localStorage.getItem('user'));
 if (!user) {
@@ -51,6 +81,11 @@ menuToggle.addEventListener('click', () => {
   profileMenu.classList.toggle('hidden');
 });
 
+// favorites button
+favoritesBtn.addEventListener('click', () => {
+  window.location.href = 'favorites.html';
+});
+
 // view profile button
 viewProfileBtn.addEventListener('click', () => {
   window.location.href = 'profil.html';
@@ -59,6 +94,13 @@ viewProfileBtn.addEventListener('click', () => {
 // close menu when clicking outside
 document.addEventListener('click', (e) => {
   if (!menuToggle.contains(e.target) && !profileMenu.contains(e.target)) {
+    profileMenu.classList.add('hidden');
+  }
+});
+
+// close menu when clicking on the overlay
+profileMenu.addEventListener('click', (e) => {
+  if (e.target === profileMenu) {
     profileMenu.classList.add('hidden');
   }
 });
@@ -150,12 +192,26 @@ function createCard(r) {
     ingr.textContent = 'Ingredients: ' + r.ingredients.slice(0, 3).join(', ') + (r.ingredients.length > 3 ? ` +${r.ingredients.length - 3} more` : '');
   }
 
-  const btn = document.createElement('button');
-  btn.textContent = 'View Full Recipe';
-  btn.className = 'btn btn--primary';
-  btn.addEventListener('click', () => openModal(r));
+  const btnContainer = document.createElement('div');
+  btnContainer.style.display = 'flex';
+  btnContainer.style.gap = '8px';
 
-  card.append(img, title, meta, rating, ingr, btn);
+  const viewBtn = document.createElement('button');
+  viewBtn.textContent = 'View Full Recipe';
+  viewBtn.className = 'btn btn--primary';
+  viewBtn.addEventListener('click', () => openModal(r));
+
+  const favBtn = document.createElement('button');
+  favBtn.textContent = isFavorited(r.id) ? 'Remove from Favorites' : 'Add to Favorites';
+  favBtn.className = 'btn btn--ghost';
+  favBtn.addEventListener('click', () => {
+    toggleFavorite(r);
+    favBtn.textContent = isFavorited(r.id) ? 'Remove from Favorites' : 'Add to Favorites';
+  });
+
+  btnContainer.append(viewBtn, favBtn);
+
+  card.append(img, title, meta, rating, ingr, btnContainer);
   return card;
 }
 

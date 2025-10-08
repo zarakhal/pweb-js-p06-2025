@@ -1,0 +1,57 @@
+<!doctype html>
+
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Recipe Collection — Favorites</title>
+
+  <!-- Fonts -->
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="favorites.css" />
+</head>
+<body class="page-bg">
+  <header class="nav">
+    <div class="nav-left">
+      <div class="brand-wrap">
+        <h2 class="brand small">Recipe Collection</h2>
+        <span class="subtle">Cozy • Lofi</span>
+      </div>
+    </div>
+    <div class="nav-right">
+      <div class="user-info">
+        <span id="userName" class="user-name">Welcome, Guest!</span>
+        <button id="logoutBtn" class="btn btn--ghost">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="favorites-section">
+      <div class="favorites-header">
+        <h1>My Favorite Recipes</h1>
+        <button id="backBtn" class="btn btn--ghost">← Back to Recipes</button>
+      </div>
+      <div id="favoritesList" class="grid"></div>
+      <div id="noFavorites" class="no-favorites hidden">
+        <p>You haven't added any favorites yet.</p>
+        <button id="goToRecipesBtn" class="btn btn--primary">Browse Recipes</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- modal for full recipe -->
+
+  <div id="modal" class="modal hidden" aria-hidden="true">
+    <div class="modal-content card">
+      <button id="modalClose" class="btn btn--ghost modal-close">Close</button>
+      <div id="modalBody" class="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="favorites.js"></script>
+
+</body>
+</html>
