@@ -1,8 +1,9 @@
-// recipes.js
 const userNameEl = document.getElementById('userName');
 const logoutBtn = document.getElementById('logoutBtn');
 const searchInput = document.getElementById('searchInput');
 const cuisineFilter = document.getElementById('cuisineFilter');
+const ratingSort = document.getElementById('sortBtn');
+const resultsCount = document.getElementById('resultsCount');
 const recipesList = document.getElementById('recipesList');
 const showMoreBtn = document.getElementById('showMoreBtn');
 const modal = document.getElementById('modal');
@@ -12,20 +13,30 @@ const modalBody = document.getElementById('modalBody');
 let allRecipes = []; // full data
 let filtered = [];   // filtered subset
 let page = 0;
+let displayed = 0;   // number of recipes currently displayed
 const PAGE_SIZE = 8;
 
+// helper function for difficulty emoji
+function getDifficultyEmoji(diff) {
+  const d = diff?.toLowerCase();
+  if (d === 'easy') return '🟢';
+  if (d === 'medium') return '🟡';
+  if (d === 'hard') return '🔴';
+  return '';
+}
+
 // proteksi halaman: cek localStorage
-const firstName = localStorage.getItem('firstName');
-if (!firstName) {
+const user = JSON.parse(localStorage.getItem('user'));
+if (!user) {
   alert('Silakan login terlebih dahulu.');
   window.location.href = 'login.html';
 } else {
-  userNameEl.textContent = firstName;
+  userNameEl.textContent = `Welcome, ${user.firstName}!`;
 }
 
 // logout button
 logoutBtn.addEventListener('click', () => {
-  localStorage.removeItem('firstName');
+  localStorage.removeItem('user');
   window.location.href = 'login.html';
 });
 
@@ -62,6 +73,7 @@ function populateCuisineDropdown(recipes) {
 // rendering functions
 function renderPageReset() {
   page = 0;
+  displayed = 0;
   recipesList.innerHTML = '';
   renderMore();
 }
@@ -73,6 +85,8 @@ function renderMore() {
     recipesList.appendChild(createCard(recipe));
   });
   page++;
+  displayed += slice.length;
+  resultsCount.textContent = `Showing ${displayed} of ${filtered.length} recipes`;
   // hide button if no more
   if (page * PAGE_SIZE >= filtered.length) {
     showMoreBtn.style.display = 'none';
@@ -94,7 +108,7 @@ function createCard(r) {
 
   const meta = document.createElement('p');
   meta.className = 'meta';
-  meta.textContent = `${r.cookingTime ?? r.time ?? '—'} min • ${r.difficulty ?? '—'} • ${r.cuisine ?? '—'}`;
+  meta.textContent = `🕒 ${r.cookTimeMinutes ?? '—'} mins • ${getDifficultyEmoji(r.difficulty)} ${r.difficulty ?? '—'} • 🌍 ${r.cuisine ?? '—'}`;
 
   const rating = document.createElement('div');
   rating.className = 'rating';
@@ -104,11 +118,12 @@ function createCard(r) {
   const ingr = document.createElement('p');
   ingr.className = 'ingredients';
   if (r.ingredients) {
-    ingr.textContent = 'Ingredients: ' + r.ingredients.slice(0, 5).join(', ') + (r.ingredients.length > 5 ? '...' : '');
+    ingr.textContent = 'Ingredients: ' + r.ingredients.slice(0, 3).join(', ') + (r.ingredients.length > 3 ? ` +${r.ingredients.length - 3} more` : '');
   }
 
   const btn = document.createElement('button');
   btn.textContent = 'View Full Recipe';
+  btn.className = 'btn btn--primary';
   btn.addEventListener('click', () => openModal(r));
 
   card.append(img, title, meta, rating, ingr, btn);
@@ -117,16 +132,33 @@ function createCard(r) {
 
 // modal
 function openModal(r) {
+  const stars = Math.round(r.rating ?? 0);
+  const starDisplay = '★'.repeat(stars) + '☆'.repeat(5 - stars);
+  const tagsHtml = (r.tags ?? []).map(tag => `<span class="tag">${tag}</span>`).join('');
   modalBody.innerHTML = `
     <h2>${r.title ?? r.name}</h2>
-    <img src="${r.thumbnail ?? r.image ?? ''}" alt="${r.title ?? r.name}" style="max-width:100%;"/>
-    <p><strong>Time:</strong> ${r.cookingTime ?? r.time ?? '—'} min</p>
-    <p><strong>Difficulty:</strong> ${r.difficulty ?? '—'}</p>
-    <p><strong>Cuisine:</strong> ${r.cuisine ?? '—'}</p>
-    <p><strong>Rating:</strong> ${r.rating ?? '—'}</p>
-    <p><strong>Ingredients:</strong> ${(r.ingredients ?? []).join(', ')}</p>
-    <p><strong>Steps / Instructions:</strong></p>
-    <pre>${(r.instructions ?? r.steps ?? 'Tidak ada instruksi lengkap')}</pre>
+    <div class="modal-recipe-layout">
+      <img src="${r.thumbnail ?? r.image ?? ''}" alt="${r.title ?? r.name}" class="modal-image"/>
+      <div class="recipe-details">
+        <p><strong>Prep Time:</strong> 🕒 ${r.prepTimeMinutes ?? '—'} mins</p>
+        <p><strong>Cook Time:</strong> 🕒 ${r.cookTimeMinutes ?? '—'} mins</p>
+        <p><strong>Servings:</strong> 🍽️ ${r.servings ?? '—'}</p>
+        <p><strong>Difficulty:</strong> ${getDifficultyEmoji(r.difficulty)} ${r.difficulty ?? '—'}</p>
+        <p><strong>Cuisine:</strong> 🌍 ${r.cuisine ?? '—'}</p>
+        <p><strong>Calories per Serving:</strong> 🔥 ${r.caloriesPerServing ?? '—'}</p>
+        <p><strong>Rating:</strong> ${starDisplay} (${r.rating ?? '—'})</p>
+        <p><strong>Review Count:</strong> 💬 ${r.reviewCount ?? '—'}</p>
+        <div class="tags-container">${tagsHtml}</div>
+      </div>
+    </div>
+    <h3>Ingredients</h3>
+    <ul>
+      ${(r.ingredients ?? []).map(ing => `<li>${ing}</li>`).join('')}
+    </ul>
+    <h3>Instructions</h3>
+    <ol>
+      ${(r.instructions ?? []).map(inst => `<li>${inst}</li>`).join('')}
+    </ol>
   `;
   modal.classList.remove('hidden');
 }
@@ -161,11 +193,19 @@ function applyFilters() {
     return qMatch && cuisineMatch;
   });
 
+  // sort by rating
+  if (ratingSort.value === 'asc') {
+    filtered.sort((a, b) => (a.rating ?? 0) - (b.rating ?? 0));
+  } else if (ratingSort.value === 'desc') {
+    filtered.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
+  }
+
   renderPageReset();
 }
 
 searchInput.addEventListener('input', debounce(applyFilters, 350));
 cuisineFilter.addEventListener('change', applyFilters);
+ratingSort.addEventListener('change', applyFilters);
 showMoreBtn.addEventListener('click', renderMore);
 
 // start

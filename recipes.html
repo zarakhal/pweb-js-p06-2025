@@ -10,7 +10,7 @@
 
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="recipes.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body class="page-bg">
   <header class="nav">
@@ -18,54 +18,47 @@
       <button id="menuToggle" class="hamburger" aria-label="menu">☰</button>
       <div class="brand-wrap">
         <h2 class="brand small">Recipe Collection</h2>
-        <span class="subtle">Cozy • Lofi • Ghibli</span>
+        <span class="subtle">Cozy • Lofi</span>
       </div>
     </div>
     <div class="nav-right">
       <div class="user-info">
-        <span id="userName" class="user-name">Guest</span>
+        <span id="userName" class="user-name">Welcome, Guest!</span>
         <button id="logoutBtn" class="btn btn--ghost">Logout</button>
       </div>
     </div>
   </header>
 
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Your Recipe Collection</h1>
+      <p>Discover and manage your favorite recipes.</p>
+    </div>
+  </section>
+
+  <nav class="sort-navbar">
+    <div class="sort-left">
+      <input id="searchInput" type="text" placeholder="Search recipes..." />
+    </div>
+    <div class="sort-right">
+      <select id="cuisineFilter">
+        <option value="">All Cuisines</option>
+      </select>
+    </div>
+  </nav>
+
   <main class="wrap">
-    <aside id="sidebar" class="card side-panel">
-      <div class="panel-inner">
-        <div class="panel-header">
-          <h3>Explore</h3>
-          <p class="subtle">Filter & search recipes</p>
-        </div>
-
-    <div class="control">
-      <label class="label small">
-        <span class="label-text">Search</span>
-        <input id="searchInput" placeholder="nama, cuisine, ingredient, tag..." />
-      </label>
-    </div>
-
-    <div class="control">
-      <label class="label small">
-        <span class="label-text">Cuisine</span>
-        <select id="cuisineFilter">
-          <option value="">All Cuisines</option>
-        </select>
-      </label>
-    </div>
-
-    <div class="panel-footer">
-      <small class="subtle">Tip: gunakan kata kunci seperti "japanese", "pasta", atau bahan seperti "egg".</small>
-    </div>
-  </div>
-</aside>
-
 <section class="content">
   <div class="controls-inline card">
     <div class="results-meta">
       <span id="resultsCount">— recipes</span>
     </div>
     <div class="actions">
-      <button id="sortBtn" class="btn btn--ghost">Sort ★</button>
+      <select id="sortBtn" class="btn btn--ghost">
+        <option value="">Sort by Rating</option>
+        <option value="asc">Low to High</option>
+        <option value="desc">High to Low</option>
+      </select>
     </div>
   </div>
 
@@ -75,7 +68,6 @@
     <button id="showMoreBtn" class="btn btn--primary">Show More</button>
   </div>
 </section>
-
 
   </main>
 
